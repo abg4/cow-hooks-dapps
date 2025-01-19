@@ -7,7 +7,7 @@ import type { Route } from "./types";
 
 function createClientAcross() {
   const client = createAcrossClient({
-    integratorId: "0xdead", // 2-byte hex string
+    integratorId: "0x0062", // cowswap identifier
     chains: [mainnet, optimism, arbitrum, base],
   });
   return client;
