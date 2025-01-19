@@ -1,8 +1,9 @@
 import * as weiroll from "@weiroll/weiroll.js";
-import { type Address, encodeFunctionData, erc20Abi, zeroAddress } from "viem";
 import { Contract } from "ethers";
+import { type Address, encodeFunctionData, erc20Abi, zeroAddress } from "viem";
 import { acrossSpokePoolAbi } from "./abis/acrossSpokePoolAbi";
 import { mathContractAbi } from "./abis/mathContractAbi";
+import { weirollAbi } from "./abis/weirollAbi";
 import type {
   BaseArgs,
   BaseTransaction,
@@ -10,7 +11,6 @@ import type {
   TRANSACTION_TYPES,
 } from "./types";
 import { CommandFlags, WEIROLL_ADDRESS } from "./weiroll";
-import { weirollAbi } from "./abis/weirollAbi";
 
 export interface AcrossDepositArgs extends BaseArgs {
   type: TRANSACTION_TYPES.ACROSS_DEPOSIT;
@@ -101,31 +101,31 @@ export class CreateAcrossWeirollProxyCreator
   implements ITransaction<CreateAcrossWeirollProxyArgs>
 {
   async createRawTx(
-    args: CreateAcrossWeirollProxyArgs
+    args: CreateAcrossWeirollProxyArgs,
   ): Promise<BaseTransaction> {
     const planner = new weiroll.Planner();
 
     const tokenWeirollContract = weiroll.Contract.createContract(
       new Contract(args.inputToken, erc20Abi),
-      CommandFlags.STATICCALL
+      CommandFlags.STATICCALL,
     );
 
     const acrossSpokePoolContract = weiroll.Contract.createContract(
       new Contract(args.acrossSpokePoolAddress, acrossSpokePoolAbi),
-      CommandFlags.CALL
+      CommandFlags.CALL,
     );
 
     const mathContract = weiroll.Contract.createContract(
       new Contract(args.mathContractAddress, mathContractAbi),
-      CommandFlags.STATICCALL
+      CommandFlags.STATICCALL,
     );
 
     const amount = planner.add(
-      tokenWeirollContract.balanceOf(args.cowShedProxy)
+      tokenWeirollContract.balanceOf(args.cowShedProxy),
     );
 
     const outputAmount = planner.add(
-      mathContract.multiplyAndSubtract(amount, BigInt(args.relayFeePercentage))
+      mathContract.multiplyAndSubtract(amount, BigInt(args.relayFeePercentage)),
     );
 
     planner.add(
@@ -142,7 +142,7 @@ export class CreateAcrossWeirollProxyCreator
             args.quoteTimestamp,
             args.fillDeadline,
             args.exclusivityDeadlineOffset,
-            args.message
+            args.message,
           )
         : acrossSpokePoolContract.depositExclusive(
             args.depositor,
@@ -156,8 +156,8 @@ export class CreateAcrossWeirollProxyCreator
             args.quoteTimestamp,
             args.fillDeadline,
             args.exclusivityDeadlineOffset,
-            args.message
-          )
+            args.message,
+          ),
     );
 
     const { commands, state } = planner.plan();

@@ -93,6 +93,7 @@ export function FormContextProvider({ children }: PropsWithChildren) {
     },
     [
       context?.account,
+      context?.chainId,
       token,
       spokePoolAddress,
       mathContractAddress,
