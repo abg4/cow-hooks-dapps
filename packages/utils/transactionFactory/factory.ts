@@ -1,4 +1,10 @@
 import {
+  type AcrossDepositArgs,
+  AcrossDepositCreator,
+  type CreateAcrossWeirollProxyArgs,
+  CreateAcrossWeirollProxyCreator,
+} from "./acrossSpokePool";
+import {
   type GaugeClaimRewardsArgs,
   GaugeClaimRewardsCreator,
   type GaugeWithdrawArgs,
@@ -53,6 +59,8 @@ export interface TransactionBindings {
   [TRANSACTION_TYPES.CREATE_VESTING_WEIROLL_USER]: CreateVestingWeirollUserArgs;
   [TRANSACTION_TYPES.UNISWAP_WITHDRAW]: UniswapWithdrawArgs;
   [TRANSACTION_TYPES.UNISWAP_DEPOSIT]: UniswapDepositArgs;
+  [TRANSACTION_TYPES.ACROSS_DEPOSIT]: AcrossDepositArgs;
+  [TRANSACTION_TYPES.CREATE_ACROSS_WEIROLL_PROXY]: CreateAcrossWeirollProxyArgs;
 }
 
 const TRANSACTION_CREATORS: {
@@ -75,6 +83,9 @@ const TRANSACTION_CREATORS: {
     CreateVestingWeirollUserCreator,
   [TRANSACTION_TYPES.UNISWAP_WITHDRAW]: UniswapWithdrawCreator,
   [TRANSACTION_TYPES.UNISWAP_DEPOSIT]: UniswapDepositCreator,
+  [TRANSACTION_TYPES.ACROSS_DEPOSIT]: AcrossDepositCreator,
+  [TRANSACTION_TYPES.CREATE_ACROSS_WEIROLL_PROXY]:
+    CreateAcrossWeirollProxyCreator,
 };
 
 // This class is intentionally designed with only static members

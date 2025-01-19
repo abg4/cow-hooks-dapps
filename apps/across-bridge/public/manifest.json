@@ -1,0 +1,39 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "homepage_url": "https://github.com/abg4/cow-hooks-dapps",
+  "description": "CoW hook dapp: Across Bridge",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "name": "Across Bridge Transaction",
+  "short_name": "Across Transaction",
+  "start_url": ".",
+  "theme_color": "#ffffff",
+  "cow_hook_dapp": {
+    "id": "a316488cecc23fde8c39d3e748e0cb12bd4d18305826d36576d4bba74bd97baf",
+    "name": "Across Bridge Transaction",
+    "descriptionShort": "Bridge funds with Across",
+    "description": "This hook allows you to easily set up a Across Bridge transaction. Enter the recipient’s address or ENS name, then choose how much to transfer: the token buy will be automatically detected by the hook and the contracts will be linked to your Across dashboard for seamless tracking.",
+    "version": "0.1.0",
+    "website": "https://across.to",
+    "image": "https://3563890891-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2Fo33kX1T6RRp4inOcEH1d%2Fuploads%2FEPQOrVgFHp024Q5QIRVM%2FAcross%20Logomark%20Dark%20Circle.png?alt=media&token=e655abf8-0e9c-4f85-9359-cbe1f2c1b010",
+    "walletCompatibility": ["EOA"],
+    "conditions": {
+      "position": "post",
+      "walletCompatibility": ["EOA"]
+    }
+  }
+}
