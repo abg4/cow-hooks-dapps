@@ -54,7 +54,7 @@ const decodeAcrossFromUserInput = (
 
   result.destinationChain = destinationChainName;
   result.recipient = args[1] as string;
-  result.amount = Number(args[5]) / 10 ** tokenDecimals;
+  result.amount = Number(args[4]) / 10 ** tokenDecimals;
   result.bridgeUserInput = true;
   result.bridgeAllFromSwap = false;
 
