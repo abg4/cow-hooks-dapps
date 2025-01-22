@@ -35,7 +35,7 @@ export class AcrossDepositCreator implements ITransaction<AcrossDepositArgs> {
       args.exclusiveRelayer === zeroAddress
         ? {
             abi: acrossSpokePoolAbi,
-            functionName: "depositExclusive",
+            functionName: "depositV3",
             args: [
               args.depositor,
               args.recipient,
@@ -53,7 +53,7 @@ export class AcrossDepositCreator implements ITransaction<AcrossDepositArgs> {
           }
         : {
             abi: acrossSpokePoolAbi,
-            functionName: "depositV3",
+            functionName: "depositExclusive",
             args: [
               args.depositor,
               args.recipient,
