@@ -31,44 +31,24 @@ export interface AcrossDepositArgs extends BaseArgs {
 
 export class AcrossDepositCreator implements ITransaction<AcrossDepositArgs> {
   async createRawTx(args: AcrossDepositArgs): Promise<BaseTransaction> {
-    const depositArgs =
-      args.exclusiveRelayer === zeroAddress
-        ? {
-            abi: acrossSpokePoolAbi,
-            functionName: "depositV3",
-            args: [
-              args.depositor,
-              args.recipient,
-              args.inputToken,
-              args.outputToken,
-              args.inputAmount,
-              args.outputAmount,
-              args.destinationChainId,
-              args.exclusiveRelayer,
-              args.quoteTimestamp,
-              args.fillDeadline,
-              args.exclusivityDeadlineOffset,
-              args.message,
-            ],
-          }
-        : {
-            abi: acrossSpokePoolAbi,
-            functionName: "depositExclusive",
-            args: [
-              args.depositor,
-              args.recipient,
-              args.inputToken,
-              args.outputToken,
-              args.inputAmount,
-              args.outputAmount,
-              args.destinationChainId,
-              args.exclusiveRelayer,
-              args.quoteTimestamp,
-              args.fillDeadline,
-              args.exclusivityDeadlineOffset,
-              args.message,
-            ],
-          };
+    const depositArgs = {
+      abi: acrossSpokePoolAbi,
+      functionName: "depositV3",
+      args: [
+        args.depositor,
+        args.recipient,
+        args.inputToken,
+        args.outputToken,
+        args.inputAmount,
+        args.outputAmount,
+        args.destinationChainId,
+        args.exclusiveRelayer,
+        args.quoteTimestamp,
+        args.fillDeadline,
+        args.exclusivityDeadlineOffset,
+        args.message,
+      ],
+    };
 
     return {
       to: args.acrossSpokePoolAddress,
@@ -129,35 +109,20 @@ export class CreateAcrossWeirollProxyCreator
     );
 
     planner.add(
-      args.exclusiveRelayer === zeroAddress
-        ? acrossSpokePoolContract.depositV3(
-            args.depositor,
-            args.recipient,
-            args.inputToken,
-            args.outputToken,
-            amount,
-            outputAmount,
-            args.destinationChainId,
-            args.exclusiveRelayer,
-            args.quoteTimestamp,
-            args.fillDeadline,
-            args.exclusivityDeadlineOffset,
-            args.message,
-          )
-        : acrossSpokePoolContract.depositExclusive(
-            args.depositor,
-            args.recipient,
-            args.inputToken,
-            args.outputToken,
-            amount,
-            outputAmount,
-            args.destinationChainId,
-            args.exclusiveRelayer,
-            args.quoteTimestamp,
-            args.fillDeadline,
-            args.exclusivityDeadlineOffset,
-            args.message,
-          ),
+      acrossSpokePoolContract.depositV3(
+        args.depositor,
+        args.recipient,
+        args.inputToken,
+        args.outputToken,
+        amount,
+        outputAmount,
+        args.destinationChainId,
+        args.exclusiveRelayer,
+        args.quoteTimestamp,
+        args.fillDeadline,
+        args.exclusivityDeadlineOffset,
+        args.message
+      )
     );
 
     const { commands, state } = planner.plan();

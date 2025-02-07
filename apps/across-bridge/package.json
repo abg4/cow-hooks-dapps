@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@across-protocol/app-sdk": "^0.0.5",
+    "@across-protocol/app-sdk": "^0.1.0",
     "@bleu/cow-hooks-ui": "workspace:*",
     "@bleu/tsconfig": "workspace:*",
     "@bleu.builders/ui": "0.1.133",
