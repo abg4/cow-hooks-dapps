@@ -1,6 +1,6 @@
 import * as weiroll from "@weiroll/weiroll.js";
 import { Contract } from "ethers";
-import { type Address, encodeFunctionData, erc20Abi, zeroAddress } from "viem";
+import { type Address, encodeFunctionData, erc20Abi } from "viem";
 import { acrossSpokePoolAbi } from "./abis/acrossSpokePoolAbi";
 import { mathContractAbi } from "./abis/mathContractAbi";
 import { weirollAbi } from "./abis/weirollAbi";
@@ -121,7 +121,7 @@ export class CreateAcrossWeirollProxyCreator
         args.quoteTimestamp,
         args.fillDeadline,
         args.exclusivityDeadlineOffset,
-        args.message
+        args.message,
       )
     );
 
