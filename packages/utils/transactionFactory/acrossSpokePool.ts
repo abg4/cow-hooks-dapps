@@ -122,7 +122,7 @@ export class CreateAcrossWeirollProxyCreator
         args.fillDeadline,
         args.exclusivityDeadlineOffset,
         args.message,
-      )
+      ),
     );
 
     const { commands, state } = planner.plan();
