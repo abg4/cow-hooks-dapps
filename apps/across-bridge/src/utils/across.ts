@@ -1,30 +1,21 @@
-import { createAcrossClient } from "@across-protocol/app-sdk";
 import type { Address } from "viem";
-import { arbitrum, base, mainnet, optimism } from "viem/chains";
 import { chainIdMap } from "../utils/chainMapping";
 import type { ChainConfig } from "../utils/types";
 import type { Route } from "./types";
-
-function createClientAcross() {
-  const client = createAcrossClient({
-    integratorId: "0x0062", // cowswap identifier
-    chains: [mainnet, optimism, arbitrum, base],
-  });
-  return client;
-}
+import axios from "axios";
 
 export async function getAcrossQuote(
   params: Route,
   inputAmount: bigint,
-  recipient: Address,
+  recipient: Address
 ) {
-  const client = createClientAcross();
-  const quote = await client.getQuote({
-    route: params,
-    inputAmount,
-    recipient,
-  });
-  return quote;
+  try {
+    const url = `https://app.across.to/api/suggested-fees?token=${params.inputToken}&originChainId=${params.originChainId}&destinationChainId=${params.destinationChainId}&amount=${inputAmount}&recipient=${recipient}`;
+    return await axios.get(url).then((res) => res.data);
+  } catch (error) {
+    console.error("Failed to fetch quote:", error);
+    return null;
+  }
 }
 
 export function getOutputToken(

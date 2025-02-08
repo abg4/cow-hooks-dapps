@@ -1,3 +1,5 @@
+import type { Address } from "viem";
+
 export type Route = {
   originChainId: number;
   destinationChainId: number;
@@ -13,4 +15,19 @@ export interface ChainConfig {
   dai?: string;
   usdt?: string;
   uma?: string;
+}
+
+export interface DepositParams {
+  depositor: Address;
+  recipient: Address;
+  inputToken: Address;
+  outputToken: Address;
+  inputAmount: bigint;
+  outputAmount: bigint;
+  destinationChainId: number;
+  exclusiveRelayer: Address;
+  quoteTimestamp: bigint;
+  fillDeadline: bigint;
+  exclusivityDeadline: bigint;
+  message: `0x${string}`;
 }

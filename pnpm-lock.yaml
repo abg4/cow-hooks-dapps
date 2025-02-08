@@ -41,9 +41,6 @@ importers:
 
   apps/across-bridge:
     dependencies:
-      '@across-protocol/app-sdk':
-        specifier: ^0.1.0
-        version: 0.1.0(viem@2.21.14(typescript@5.6.2)(zod@3.23.8))
       '@bleu.builders/ui':
         specifier: 0.1.133
         version: 0.1.133(@types/react-dom@18.3.0)(@types/react@18.3.11)(mapbox-gl@1.13.3)(react-dom@19.0.0-rc-e4953922-20240919(react@19.0.0-rc-e4953922-20240919))(react-hook-form@7.53.0(react@19.0.0-rc-e4953922-20240919))(react-router-dom@6.26.2(react-dom@19.0.0-rc-e4953922-20240919(react@19.0.0-rc-e4953922-20240919))(react@19.0.0-rc-e4953922-20240919))(react@19.0.0-rc-e4953922-20240919)(webpack@5.95.0)
@@ -1122,12 +1119,6 @@ packages:
 
   '@1inch/permit-signed-approvals-utils@1.5.2':
     resolution: {integrity: sha512-M3l1YdSSzdsRTusiPkcfgCQ25ZLJeC41LUWDOrunGMpl4F/D058FtXk0e5lxMJ7Wi+CmIKxmm7KVUFtIiEi1dw==}
-
-  '@across-protocol/app-sdk@0.1.0':
-    resolution: {integrity: sha512-Xs2Qkh/scpYFPMguNdXe5U/p8wZLZQQeAJCp3DSEpeT2McZHghsi4sRliwnJG/hnyyxTHxvH9jom/r3i1PmfIA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      viem: ^2.20.1
 
   '@adobe/css-tools@4.4.0':
     resolution: {integrity: sha512-Ff9+ksdQQB3rMncgqDK78uLznstjyfIf2Arnh22pW8kBpLs6rpKDwgnZT46hin5Hl1WzazzK64DOrhSwYpS7bQ==}
@@ -6850,10 +6841,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  '@across-protocol/app-sdk@0.1.0(viem@2.21.14(typescript@5.6.2)(zod@3.23.8))':
-    dependencies:
-      viem: 2.21.14(typescript@5.6.2)(zod@3.23.8)
 
   '@adobe/css-tools@4.4.0': {}
 

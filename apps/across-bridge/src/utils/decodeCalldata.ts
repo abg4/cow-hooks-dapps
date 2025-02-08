@@ -1,5 +1,4 @@
-import { spokePoolAbi } from "@across-protocol/app-sdk/dist/abis/SpokePool";
-import { cowShedAbi, weirollAbi } from "@bleu/utils/transactionFactory";
+import { cowShedAbi, weirollAbi, acrossSpokePoolAbi } from "@bleu/utils/transactionFactory";
 import { type DecodeFunctionDataReturnType, decodeFunctionData } from "viem";
 import { getChainNameById } from "./chainMapping";
 import type { CreateAcrossFormData } from "./schema";
@@ -41,7 +40,7 @@ const decodeAcrossFromUserInput = (
   const result = {} as CreateAcrossFormData;
 
   const spokePoolDepositData = decodeFunctionData({
-    abi: spokePoolAbi,
+    abi: acrossSpokePoolAbi,
     //@ts-ignore
     data: decodedFunctionData.args[0].at(-1).callData as `0x${string}`,
   });

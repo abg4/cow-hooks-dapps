@@ -8,6 +8,7 @@ import { type Address, maxUint256 } from "viem";
 import { getAcrossQuote, getOutputToken } from "../utils/across";
 import { chainIdMap } from "../utils/chainMapping";
 import type { GetHooksTransactionsParams } from "./useGetHooksTransactions";
+import { DepositParams } from "../utils/types";
 
 export const useGetHooksInfoBridgeAllFromSwap = () => {
   const { context, cowShedProxy } = useIFrameContext();
@@ -25,6 +26,8 @@ export const useGetHooksInfoBridgeAllFromSwap = () => {
 
       if (!context?.account || !context?.orderParams || !cowShedProxy) return;
       const tokenAddress = token.address as Address;
+      const inputAmount = BigInt(context?.orderParams.buyAmount);
+
       const destinationChainId = chainIdMap[destinationChain];
       if (!destinationChainId) return;
 
@@ -42,11 +45,29 @@ export const useGetHooksInfoBridgeAllFromSwap = () => {
           inputToken: tokenAddress,
           outputToken: outputToken as Address,
         },
-        BigInt(context?.orderParams.buyAmount),
-        recipient as Address,
+        inputAmount,
+        recipient as Address
       );
-      const depositParams = quote.deposit;
-      const relayFeePercentage = quote.fees.totalRelayFee.pct;
+      if (!quote) return;
+
+      const fee = BigInt(quote.totalRelayFee.total);
+      const outputAmount = inputAmount - fee;
+
+      const depositParams: DepositParams = {
+        depositor: context.account,
+        recipient: recipient as Address,
+        inputToken: tokenAddress,
+        outputToken: outputToken as Address,
+        inputAmount,
+        outputAmount,
+        destinationChainId: destinationChainId.chainId,
+        exclusiveRelayer: quote.exclusiveRelayer,
+        quoteTimestamp: BigInt(quote.timestamp),
+        exclusivityDeadline: quote.exclusivityDeadline,
+        message: "0x",
+        fillDeadline: quote.fillDeadline,
+      };
+      const relayFeePercentage = quote.totalRelayFee.pct;
 
       const txs = await Promise.all([
         // Proxy approves Across Bridge Spoke Pool
