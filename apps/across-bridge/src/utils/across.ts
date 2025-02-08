@@ -1,13 +1,13 @@
+import axios from "axios";
 import type { Address } from "viem";
 import { chainIdMap } from "../utils/chainMapping";
 import type { ChainConfig } from "../utils/types";
 import type { Route } from "./types";
-import axios from "axios";
 
 export async function getAcrossQuote(
   params: Route,
   inputAmount: bigint,
-  recipient: Address
+  recipient: Address,
 ) {
   try {
     const url = `https://app.across.to/api/suggested-fees?token=${params.inputToken}&originChainId=${params.originChainId}&destinationChainId=${params.destinationChainId}&amount=${inputAmount}&recipient=${recipient}`;

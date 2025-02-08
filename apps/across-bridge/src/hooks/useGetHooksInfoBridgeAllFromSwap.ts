@@ -7,8 +7,8 @@ import { useCallback } from "react";
 import { type Address, maxUint256 } from "viem";
 import { getAcrossQuote, getOutputToken } from "../utils/across";
 import { chainIdMap } from "../utils/chainMapping";
+import type { DepositParams } from "../utils/types";
 import type { GetHooksTransactionsParams } from "./useGetHooksTransactions";
-import { DepositParams } from "../utils/types";
 
 export const useGetHooksInfoBridgeAllFromSwap = () => {
   const { context, cowShedProxy } = useIFrameContext();
@@ -46,7 +46,7 @@ export const useGetHooksInfoBridgeAllFromSwap = () => {
           outputToken: outputToken as Address,
         },
         inputAmount,
-        recipient as Address
+        recipient as Address,
       );
       if (!quote) return;
 
