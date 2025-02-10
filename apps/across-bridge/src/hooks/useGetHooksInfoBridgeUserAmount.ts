@@ -5,6 +5,7 @@ import {
 } from "@bleu/utils/transactionFactory";
 import { useCallback } from "react";
 import { type Address, parseUnits } from "viem";
+import type { DepositParams } from "#/utils/types";
 import { getAcrossQuote, getOutputToken } from "../utils/across";
 import { chainIdMap } from "../utils/chainMapping";
 import type { GetHooksTransactionsParams } from "./useGetHooksTransactions";
@@ -53,7 +54,25 @@ export const useGetHooksInfoBridgeUserAmount = () => {
         recipient as Address,
       );
 
-      const depositParams = quote.deposit;
+      if (!quote) return;
+
+      const fee = BigInt(quote.totalRelayFee.total);
+      const outputAmount = amountWei - fee;
+
+      const depositParams: DepositParams = {
+        depositor: context.account,
+        recipient: recipient as Address,
+        inputToken: tokenAddress,
+        outputToken: outputToken as Address,
+        inputAmount: amountWei,
+        outputAmount,
+        destinationChainId: destinationChainId.chainId,
+        exclusiveRelayer: quote.exclusiveRelayer,
+        quoteTimestamp: BigInt(quote.timestamp),
+        exclusivityDeadline: quote.exclusivityDeadline,
+        message: "0x",
+        fillDeadline: quote.fillDeadline,
+      };
 
       const txs = await Promise.all([
         // Transfer to proxy
@@ -85,7 +104,7 @@ export const useGetHooksInfoBridgeUserAmount = () => {
           destinationChainId: BigInt(destinationChainId.chainId),
           exclusiveRelayer: depositParams.exclusiveRelayer,
           quoteTimestamp: BigInt(depositParams.quoteTimestamp),
-          fillDeadline: BigInt(Math.floor(Date.now() / 1000) + 7200), // 2 hours from now
+          fillDeadline: depositParams.fillDeadline,
           exclusivityDeadlineOffset: BigInt(depositParams.exclusivityDeadline),
           message: depositParams.message,
         }),

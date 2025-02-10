@@ -93,7 +93,7 @@ export const useGetHooksInfoBridgeAllFromSwap = () => {
             destinationChainId: BigInt(destinationChainId.chainId),
             exclusiveRelayer: depositParams.exclusiveRelayer,
             quoteTimestamp: BigInt(depositParams.quoteTimestamp),
-            fillDeadline: BigInt(Math.floor(Date.now() / 1000) + 7200), // 2 hours from now
+            fillDeadline: depositParams.fillDeadline,
             exclusivityDeadlineOffset: BigInt(
               depositParams.exclusivityDeadline,
             ),
